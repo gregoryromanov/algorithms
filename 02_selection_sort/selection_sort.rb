@@ -1,18 +1,19 @@
 def selecttion_sort(list)
-  sorted = []
+  current_i = 0
 
-  until list.empty?
-    index = list.each_with_index.inject(0) do |max, pair|
-      n, index = pair
+  while current_i < list.size - 1
+    min_i = current_i
 
-      list[max] > n ? max : index
+    list[current_i..-1].each_with_index do |n, i|
+      min_i = list[min_i] < n ? min_i : (i + current_i)
     end
 
-    sorted << list[index]
-    list.delete_at index
+    list[current_i], list[min_i] = list[min_i], list[current_i]
+
+    current_i += 1
   end
 
-  sorted
+  list
 end
 
 pp selecttion_sort [*1..10].shuffle

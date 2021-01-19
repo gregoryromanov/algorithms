@@ -1,15 +1,21 @@
 const selection_sort = <T>(list: T[]): T[] => {
-  const sorted: T[] = []
+  let current_i: number = 0
 
-  while(!!list.length) {
-    let max: number = list.reduce((max, n, i) => list[max] >= n ? max : i, 0)
+  while(current_i < list.length - 1) {
+    let min_i: number = current_i
+    
+    list.slice(current_i).forEach((n, i) => {
+      min_i = list[min_i] < n ? min_i : (i + current_i)
+    })
 
-    sorted.push(list[max])
+    let [curr, min] = [list[current_i], list[min_i]];
+    list[current_i] = min;
+    list[min_i] = curr;
 
-    list.splice(max, 1)
+    current_i++
   }
 
-  return sorted
+  return list
 }
 
 
@@ -17,4 +23,3 @@ const list = Array.from({length: 10}, () => Math.floor(Math.random() * 40));
 const sorted = selection_sort(list)
 
 console.log(sorted)
-
