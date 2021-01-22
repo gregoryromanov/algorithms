@@ -32,6 +32,7 @@ class LinkedList
 
     removed = @head
     @head = @head.next
+    decrement_size
 
     removed
   end
